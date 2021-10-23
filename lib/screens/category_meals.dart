@@ -32,7 +32,10 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.category.title)),
+      appBar: AppBar(
+        title: Text(widget.category.title),
+        elevation: 0,
+      ),
       body: ListView.separated(
         padding: const EdgeInsets.all(24),
         itemCount: meals.length,
