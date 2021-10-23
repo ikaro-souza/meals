@@ -16,27 +16,35 @@ class FavoritesScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Consumer<Store>(
-        builder: (_, store, child) => ListView.separated(
-          itemBuilder: (_, i) {
-            final meal = store.favoriteMeals[i];
-
-            return ListTile(
-              onTap: () => Navigator.of(context).pushNamed(
-                mealDetailsRoute,
-                arguments: meal,
-              ),
-              title: Text(meal.title),
-              trailing: IconButton(
-                icon: const Icon(Icons.favorite_border),
-                onPressed: () => _onFavoritePressed(context, meal),
-              ),
+        builder: (_, store, child) {
+          if (store.favoriteMeals.isEmpty) {
+            return const Center(
+              child: Text('No meals favorited yet.'),
             );
-          },
-          separatorBuilder: (_, __) {
-            return const SizedBox(height: 16);
-          },
-          itemCount: store.favoriteMeals.length,
-        ),
+          }
+
+          return ListView.separated(
+            itemBuilder: (_, i) {
+              final meal = store.favoriteMeals[i];
+
+              return ListTile(
+                onTap: () => Navigator.of(context).pushNamed(
+                  mealDetailsRoute,
+                  arguments: meal,
+                ),
+                title: Text(meal.title),
+                trailing: IconButton(
+                  icon: const Icon(Icons.favorite_border),
+                  onPressed: () => _onFavoritePressed(context, meal),
+                ),
+              );
+            },
+            separatorBuilder: (_, __) {
+              return const SizedBox(height: 16);
+            },
+            itemCount: store.favoriteMeals.length,
+          );
+        },
       ),
     );
   }
